@@ -1,7 +1,7 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  v2506                                 |
+|  \\    /   O peration     | Version:  2412                                  |
 |   \\  /    A nd           | Website:  www.openfoam.com                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
@@ -9,34 +9,26 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    class       volScalarField;
-    object      T;
+    class       dictionary;
+    object      transportProperties;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dimensions      [0 0 0 1 0 0 0];
+transportModel  Newtonian;
 
-internalField   uniform 300;
+// 运动粘度
+nu              [0 2 -1 0 0 0 0] 1.5e-5;
 
-boundaryField
-{
-    floor
-    {
-        type            fixedValue;
-        value           uniform 310; 
-    }
+// 热膨胀系数
+beta            [0 0 0 -1 0 0 0] 0.00333;
 
-    ceiling
-    {
-        type            fixedValue; 
-        value           uniform 290;
-    }
+// 分子普朗特数 (Molecular Prandtl number)
+Pr              [0 0 0 0 0 0 0] 0.71;
 
-    fixedWalls
-    {
-        type            zeroGradient; 
-    }
-}
+// 湍流普朗特数 (Turbulent Prandtl number) - 填入标准值 0.85
+Prt             [0 0 0 0 0 0 0] 0.85;
 
+// 参考温度
+TRef            [0 0 0 1 0 0 0] 300;
 
 // ************************************************************************* //

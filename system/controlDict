@@ -1,7 +1,7 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  v2506                                 |
+|  \\    /   O peration     | Version:  v2412                                 |
 |   \\  /    A nd           | Website:  www.openfoam.com                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
@@ -14,54 +14,43 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-application     buoyantPimpleFoam;
+application     buoyantBoussinesqPimpleFoam;
 
 startFrom       startTime;
-
 startTime       0;
-
 stopAt          endTime;
+endTime         200;
 
-endTime         2000;
+deltaT          0.001;
 
-deltaT          2;
-
-writeControl    timeStep;
-
-writeInterval   100;
-
-purgeWrite      0;
-
-writeFormat     ascii;
-
+writeControl    runTime;
+writeInterval   2;
+purgeWrite      5;
+writeFormat     binary;
 writePrecision  6;
-
-writeCompression off;
+writeCompression on;
 
 timeFormat      general;
-
 timePrecision   6;
 
 runTimeModifiable true;
 
-adjustTimeStep  no;
-
+adjustTimeStep  yes;
 maxCo           0.5;
+maxDeltaT       0.1;
 
 functions
 {
-    htc
+    heatTransfer
     {
         type            heatTransferCoeff;
         libs            (fieldFunctionObjects);
         field           T;
         writeControl    writeTime;
-        writeInterval   1;
+        patches         (ceiling floor);
         htcModel        fixedReferenceTemperature;
-        patches         (ceiling);
-        TRef            373;
+        TRef            300;
     }
 }
-
 
 // ************************************************************************* //
