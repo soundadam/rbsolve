@@ -10,40 +10,26 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    object      thermophysicalProperties;
+    object      transportProperties;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-thermoType
-{
-    type            heRhoThermo;
-    mixture         pureMixture;
-    transport       const;
-    thermo          hConst;
-    equationOfState perfectGas;
-    specie          specie;
-    energy          sensibleEnthalpy;
-}
+transportModel Newtonian;
 
-pRef            100000;
+// Laminar viscosity
+nu              1e-03;
 
-mixture
-{
-    specie
-    {
-        molWeight       28.9;
-    }
-    thermodynamics
-    {
-        Cp              1000;
-        Hf              0;
-    }
-    transport
-    {
-        mu              1.8e-05;
-        Pr              0.7;
-    }
-}
+// Thermal expansion coefficient
+beta            1e-03;
+
+// Reference temperature
+TRef            300;
+
+// Laminar Prandtl number
+Pr              1.0;
+
+// Turbulent Prandtl number
+Prt             1.0;
 
 
 // ************************************************************************* //

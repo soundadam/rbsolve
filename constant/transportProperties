@@ -1,7 +1,7 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  2412                                  |
+|  \\    /   O peration     | Version:  v2506                                 |
 |   \\  /    A nd           | Website:  www.openfoam.com                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
@@ -14,21 +14,22 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-transportModel  Newtonian;
+transportModel Newtonian;
 
-// 运动粘度
-nu              [0 2 -1 0 0 0 0] 1.5e-5;
+// Laminar viscosity
+nu              1e-03;
 
-// 热膨胀系数
-beta            [0 0 0 -1 0 0 0] 0.00333;
+// Thermal expansion coefficient
+beta            1e-03;
 
-// 分子普朗特数 (Molecular Prandtl number)
-Pr              [0 0 0 0 0 0 0] 0.71;
+// Reference temperature
+TRef            300;
 
-// 湍流普朗特数 (Turbulent Prandtl number) - 填入标准值 0.85
-Prt             [0 0 0 0 0 0 0] 0.85;
+// Laminar Prandtl number
+Pr              1.0;
 
-// 参考温度
-TRef            [0 0 0 1 0 0 0] 300;
+// Turbulent Prandtl number
+Prt             1.0;
+
 
 // ************************************************************************* //

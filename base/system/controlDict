@@ -9,34 +9,45 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    class       volScalarField;
-    object      k;
+    class       dictionary;
+    object      controlDict;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dimensions      [0 2 -2 0 0 0 0];
+application     buoyantBoussinesqPimpleFoam;
 
-internalField   uniform 0.1;
+startFrom       latestTime;
 
-boundaryField
+startTime       0;
+
+stopAt          endTime;
+
+endTime         1000;
+
+deltaT          1;
+
+writeControl    runTime;
+
+writeInterval   50;
+
+purgeWrite      0;
+
+writeFormat     binary;
+
+writePrecision  6;
+
+writeCompression off;
+
+timeFormat      general;
+
+timePrecision   6;
+
+runTimeModifiable true;
+
+functions
 {
-    floor
-    {
-        type            kqRWallFunction;
-        value           uniform 0.1;
-    }
-
-    ceiling
-    {
-        type            kqRWallFunction;
-        value           uniform 0.1;
-    }
-
-    fixedWalls
-    {
-        type            kqRWallFunction;
-        value           uniform 0.1;
-    }
+    #includeFunc solverInfo
+    #includeFunc streamlines
 }
 
 

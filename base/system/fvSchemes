@@ -9,34 +9,48 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    class       volScalarField;
-    object      p_rgh;
+    class       dictionary;
+    object      fvSchemes;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dimensions      [1 -1 -2 0 0 0 0];
-
-internalField   uniform 1e5;
-
-boundaryField
+ddtSchemes
 {
-    floor
-    {
-        type            fixedFluxPressure;
-        value           uniform 1e5;
-    }
+    default         Euler;
+}
 
-    ceiling
-    {
-        type            fixedFluxPressure;
-        value           uniform 1e5;
-    }
+gradSchemes
+{
+    default         Gauss linear;
+}
 
-    fixedWalls
-    {
-        type            fixedFluxPressure;
-        value           uniform 1e5;
-    }
+divSchemes
+{
+    default         none;
+
+    div(phi,U)      Gauss linearUpwind grad(U);
+    div(phi,T)      Gauss limitedLinear 1;
+
+    turbulence      Gauss limitedLinear 1;
+    div(phi,k)      $turbulence;
+    div(phi,epsilon) $turbulence;
+
+    div((nuEff*dev2(T(grad(U))))) Gauss linear;
+}
+
+laplacianSchemes
+{
+    default         Gauss linear corrected;
+}
+
+interpolationSchemes
+{
+    default         linear;
+}
+
+snGradSchemes
+{
+    default         corrected;
 }
 
 

@@ -9,34 +9,20 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    class       volScalarField;
-    object      alphat;
+    class       dictionary;
+    object      turbulenceProperties;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dimensions      [1 -1 -1 0 0 0 0];
+simulationType      laminar;
 
-internalField   uniform 0;
-
-boundaryField
+RAS
 {
-    floor
-    {
-        type            compressible::alphatWallFunction;
-        value           uniform 0;
-    }
+    RASModel        kEpsilon;
 
-    ceiling
-    {
-        type            compressible::alphatWallFunction;
-        value           uniform 0;
-    }
+    turbulence      on;
 
-    fixedWalls
-    {
-        type            compressible::alphatWallFunction;
-        value           uniform 0;
-    }
+    printCoeffs     on;
 }
 
 
